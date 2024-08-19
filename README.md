@@ -1,8 +1,7 @@
-## Users テーブル
+## usersテーブル
 
 | カラム名 | 型 | オプション |
 | --- | --- | --- |
-| id | integer | null: false, primary key |
 | nickname | string | null: false |
 | email | string | null: false, unique: true |
 | encrypted_password | string | null: false |
@@ -19,35 +18,33 @@
 
 ---
 
-## Products テーブル
+## productsテーブル
 
 | カラム名 | 型 | オプション |
 | --- | --- | --- |
-| id | integer | null: false, primary key |
 | name | string | null: false |
 | description | text | null: false |
 | price | integer | null: false |
-| category | references | null: false, foreign_key: true |
-| condition | references | null: false, foreign_key: true |
-| shipping_charge | references | null: false, foreign_key: true |
-| shipping_area | references | null: false, foreign_key: true |
-| shipping_date | references | null: false, foreign_key: true |
+| category_id | integer | null: false |
+| condition_id | integer | null: false |
+| shipping_charge_id | integer | null: false |
+| shipping_area_id | integer | null: false |
+| shipping_date_id | integer | null: false |
 | user | references | null: false, foreign_key: true |
 
 ### アソシエーション
 
 - belongs_to :user
-- has_many :orders
+- has_one :order
 
 ---
 
-## My Addresses テーブル
+## my_addressesテーブル
 
 | カラム名 | 型 | オプション |
 | --- | --- | --- |
-| id | integer | null: false, primary key |
 | postal_code | string | null: false |
-| prefecture | references | null: false, foreign_key: true |
+| prefecture_id | integer | null: false |
 | city | string | null: false |
 | addresses | string | null: false |
 | building | string |  |
@@ -60,11 +57,10 @@
 
 ---
 
-## Orders テーブル
+## ordersテーブル
 
 | カラム名 | 型 | オプション |
 | --- | --- | --- |
-| id | integer | null: false, primary key |
 | user | references | null: false, foreign_key: true |
 | product | references | null: false, foreign_key: true |
 
