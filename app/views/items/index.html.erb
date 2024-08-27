@@ -128,18 +128,18 @@
     </div>
     <ul class='item-lists'>
 
-      <% @items.each do |item| %>
+      <%# 商品のインスタンス変数になにか入っている場合、中身のすべてを展開できるようにしましょう %>
 
       <li class='list'>
-        <%= link_to item_path(item) do %>
+        <%# link_to item_path(item) do %>
         <div class='item-img-content'>
           <%= image_tag "item-sample.png", class: "item-img" %>
 
-          <% if item.sold_out? %>
+          <%# if item.sold_out? %>
            <div class='sold-out'>
             <span>Sold Out!!</span>
            </div>
-          <% end %>
+          <%# end %>
 
         </div>
         <div class='item-info'>
@@ -153,9 +153,9 @@
               <span class='star-count'>0</span>
             </div>
           </div>
-          <% end %>
+          <%# end %>
         </div>
-        <% end %>
+        <%# end %>
       </li>
       <%# //商品のインスタンス変数になにか入っている場合、中身のすべてを展開できるようにしましょう %>
 
