@@ -15,9 +15,9 @@ class ItemsController < ApplicationController
     puts params[:item]
     if @item.save
       flash[:notice] = '商品が出品されました'
-      redirect_to item_path(@item)
+      redirect_to root_path
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 

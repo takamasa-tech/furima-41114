@@ -1,15 +1,19 @@
 window.addEventListener('turbo:load', () => {
-    console.log("OK");
   })
 
   const price = () => {
-  const priceInput = document.getElementById("金額を入力する場所のid");
-  priceInput.addEventListener("input", () => {
-     const inputValue = priceInput.value;
-  })
-  const addTaxDom = document.getElementById("販売手数料を表示する場所のid");
-  addTaxDom.innerHTML = "入力した金額をもとに販売手数料を計算する処理"
-};
+    const priceInput = document.getElementById("item-price");
+    const price = priceInput.value;
+    
+    const fee = Math.floor(price * 0.1); // 10%の販売手数料を計算
+    const profit = price - fee; // 利益を計算
+    
+    const feeDom = document.getElementById("sales-fee");
+    const profitDom = document.getElementById("profit");
+    
+    feeDom.innerHTML = fee;
+    profitDom.innerHTML = profit;
+    };
 
 window.addEventListener("turbo:load", price);
 window.addEventListener("turbo:render", price);
