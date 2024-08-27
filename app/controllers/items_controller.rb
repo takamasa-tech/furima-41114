@@ -12,7 +12,6 @@ class ItemsController < ApplicationController
   def create
     @item = current_user.items.new(item_params)
 
-    puts params[:item]
     if @item.save
       flash[:notice] = '商品が出品されました'
       redirect_to root_path
