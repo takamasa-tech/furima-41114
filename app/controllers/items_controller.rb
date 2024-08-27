@@ -6,19 +6,19 @@ class ItemsController < ApplicationController
   end
 
   def new
-    puts 'New action is called'
     @item = Item.new
   end
 
-  def edit
-    @item = Item.find(params[:id])
-  end
-
   def create
-    @item = Item.new(item_params)
+    @item = current_user.items.new(item_params)
+
+    puts params[:item]
     if @item.save
-      redirect_to root_path, notice: '商品が出品されました'
+      flash[:notice] = '商品が出品されました'
+      redirect_to item_path(@item)
     else
+      # デバッグ用にエラー内容をコンソールに出力
+      puts @item.errors.full_messages
       render :new
     end
   end
@@ -26,8 +26,8 @@ class ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:name, :description, :price, :category_id,
-                                 :condition_id, :shipping_fee_id, :prefecture_id,
-                                 :scheduled_delivery_id, :image).merge(user_id: current_user.id)
+    params.require(:item).permit(:name, :info, :price, :category_id, :condition_id,
+                                 :shipping_fee_status_id, :prefecture_id,
+                                 :scheduled_delivery_id, :image)
   end
 end

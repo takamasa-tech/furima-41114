@@ -5,9 +5,21 @@
   </header>
   <div class="items-sell-main">
     <h2 class="items-sell-title">商品の情報を入力</h2>
-    <%= form_with local: true do |f| %>
+    <turbo-frame id="item-form">
+   <%= form_with model: @item, url: items_path, method: :post, local: true, multipart: true do |f| %>
+   <% if @item.errors.any? %>
+     <div id="error_explanation">
+      <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
+      <ul>
+      <% @item.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+     </ul>
+    </div>
+   <% end %>
 
-    <% render 'shared/error_messages', model: @item %>
+
+    <%= render 'shared/error_messages', model: @item %>
 
     <%# 商品画像 %>
     <div class="img-upload">
@@ -53,7 +65,7 @@
           商品の状態
           <span class="indispensable">必須</span>
         </div>
-        <%= f.collection_select(:item_condition_id, Condition.all, :id, :name, {}, {class:"select-box", id:"item-sales-status"}) %>
+        <%= f.collection_select(:condition_id, Condition.all, :id, :name, {}, {class:"select-box", id:"item-condition"}) %>
       </div>
     </div>
     <%# /商品の詳細 %>
@@ -97,7 +109,7 @@
             <span class="indispensable">必須</span>
           </div>
           <span class="sell-yen">¥</span>
-          <%= f.text_field :name, class:"price-input", id:"item-price", placeholder:"例）300" %>
+          <%= f.text_field :price, class:"price-input", id:"item-price", placeholder:"例）300", autocomplete: "off" %>
         </div>
         <div class="price-content">
           <span>販売手数料 (10%)</span>
@@ -105,6 +117,7 @@
             <span id='add-tax-price'></span>円
           </span>
         </div>
+      
         <div class="price-content">
           <span>販売利益</span>
           <span>
@@ -113,9 +126,24 @@
         </div>
       </div>
     </div>
-    <%# /販売価格 %>
+    <script>
+      window.addEventListener('DOMContentLoaded', (event) => {
+        const priceInput = document.getElementById("item-price");
+        const addTaxDom = document.getElementById("add-tax-price");
+        const profitDom = document.getElementById("profit");
 
-    <%# 注意書き %>
+        priceInput.addEventListener('input', () => {
+          const inputValue = priceInput.value;
+
+          const addTaxValue = Math.floor(inputValue * 0.1);
+          const profitValue = inputValue - addTaxValue;
+
+          addTaxDom.textContent = addTaxValue;
+          profitDom.textContent = profitValue;
+        });
+      });
+    </script>
+  
     <div class="caution">
       <p class="sentence">
         <a href="#">禁止されている出品、</a>
@@ -140,9 +168,9 @@
       <%=link_to 'もどる', root_path, class:"back-btn" %>
     </div>
     <%# /下部ボタン %>
-  </div>
+   </div>
   <% end %>
-
+   </turbo-frame>
   <footer class="items-sell-footer">
     <ul class="menu">
       <li><a href="#">プライバシーポリシー</a></li>
@@ -154,4 +182,3 @@
       ©︎Furima,Inc.
     </p>
   </footer>
-</div>

@@ -10,9 +10,9 @@ class Item < ApplicationRecord
 
   validates :image, presence: true
   validates :name, presence: true
-  validates :description, presence: true
-  validates :category_id, presence: true, numericality: { other_than: 1 }
+  validates :info, presence: true
   validates :condition_id, presence: true, numericality: { other_than: 1 }
+  validates :category_id, presence: true, numericality: { other_than: 1 }
   validates :shipping_fee_status_id, presence: true, numericality: { other_than: 1 }
   validates :prefecture_id, presence: true, numericality: { other_than: 1 }
   validates :scheduled_delivery_id, presence: true, numericality: { other_than: 1 }

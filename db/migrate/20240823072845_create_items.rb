@@ -1,8 +1,8 @@
-class CreateItems < ActiveRecord::Migration[6.0]
+class CreateItems < ActiveRecord::Migration[7.0]
   def change
     create_table :items do |t|
       t.string  :name, null: false                   # 商品名
-      t.text    :description, null: false            # 商品の説明
+      t.text    :info, null: false            # 商品の説明
       t.integer :price, null: false                  # 価格
       t.integer :category_id, null: false            # カテゴリー
       t.integer :condition_id, null: false           # 商品の状態
@@ -11,6 +11,8 @@ class CreateItems < ActiveRecord::Migration[6.0]
       t.integer :scheduled_delivery_id, null: false  # 発送までの日数
       t.references :user, null: false, foreign_key: true # 出品者（ユーザー）
       t.timestamps
+        rename_column :items, :description, :info
+
     end
   end
 end
