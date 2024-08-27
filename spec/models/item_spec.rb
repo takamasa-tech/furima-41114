@@ -25,9 +25,9 @@ RSpec.describe Item, type: :model do
       end
 
       it '商品の説明がなければ出品できない' do
-        @item.description = ''
+        @item.info = ''
         @item.valid?
-        expect(@item.errors.full_messages).to include("Description can't be blank")
+        expect(@item.errors.full_messages).to include("Info can't be blank")
       end
       it 'カテゴリーが「---」の場合は出品できない' do
         @item.category_id = 1

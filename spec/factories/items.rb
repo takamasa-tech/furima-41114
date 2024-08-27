@@ -3,7 +3,7 @@ FactoryBot.define do
     association :user
     image { Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec/fixtures/test_image.png')) }
     name { Faker::Lorem.word }
-    description { Faker::Lorem.sentence }
+    info { Faker::Lorem.sentence }
     category_id { Faker::Number.between(from: 2, to: 11) }
     condition_id { Faker::Number.between(from: 2, to: 7) }
     shipping_fee_status_id { Faker::Number.between(from: 2, to: 3) }
