@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
-
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
+  before_action :set_item, only: [:show, :edit, :update]
   def index
     @items = Item.order('created_at DESC')
   end
@@ -21,21 +21,16 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find(params[:id])
   end
 
   def edit
-    @item = Item.find(params[:id])
-    return unless @item.user != current_user
-
-    redirect_to root_path
+    redirect_to root_path if @item.user != current_user
   end
 
   def update
-    @item = current_user.items.find(params[:id])
-
-    if @item.update(item_params)
-      flash[:notice] = '商品情報が更新されました'
+    if @item.user != current_user
+      redirect_to root_path
+    elsif @item.update(item_params)
       redirect_to item_path(@item)
     else
       render :edit, status: :unprocessable_entity
