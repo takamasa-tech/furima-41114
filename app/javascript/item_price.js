@@ -14,5 +14,15 @@ const price = () => {
     });
 }
 
-window.addEventListener("turbo:load", price);
-window.addEventListener("turbo:render", price);
+window.addEventListener('load', price); // ページが読み込まれたらprice関数を実行
+window.addEventListener('turbolinks:load', price); // turbolinksを使ってページ遷移したらprice関数を実行
+window.addEventListener('DOMContentLoaded', () => {
+  document.getElementById("item-price").addEventListener("input", () => {
+    const inputValue = document.getElementById("item-price").value;
+    const addTaxDom = document.getElementById("add-tax-price");
+    const profitNumber = document.getElementById("profit");
+
+    addTaxDom.innerHTML = Math.floor(inputValue * 0.1).toLocaleString();
+    profitNumber.innerHTML = Math.floor(inputValue - inputValue * 0.1).toLocaleString();
+  });
+});
