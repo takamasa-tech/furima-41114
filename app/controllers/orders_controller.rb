@@ -1,11 +1,10 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_user!, only: [:index, :create] # ログイン状態をチェック
-  before_action :set_item, only: [:index, :create] # 商品情報を取得
-  before_action :redirect_if_not_valid, only: [:index, :create] # バリデーションをチェック
-  before_action :set_payjp_public_key, only: [:index, :create] # PAY.JPの公開鍵を取得
+  before_action :authenticate_user!, only: [:index, :create]
+  before_action :set_item, only: [:index, :create]
+  before_action :redirect_if_not_valid, only: [:index, :create]
+  before_action :set_payjp_public_key, only: [:index, :create]
 
   def index
-    @item = Item.find(params[:item_id]) # 商品情報のIDをもとに、その商品の情報を取得
     @order_form = OrderForm.new
   end
 
