@@ -4,7 +4,7 @@ RSpec.describe OrderForm, type: :model do
   before do
     user = FactoryBot.create(:user)
     item = FactoryBot.create(:item)
-    @order_form = FactoryBot.build(:order_form, user_id: user.id, item_id: item.id)
+    @order_form = FactoryBot.build(:order_form, user_id: user.id, item_id: item.id, credit_card: '1234567812345678')
   end
 
   context '登録できる場合' do
@@ -33,32 +33,53 @@ RSpec.describe OrderForm, type: :model do
 
     it 'tokenが空だと登録できない' do
       @order_form.token = nil
+      @order_form.valid?
       expect(@order_form).to_not be_valid
     end
 
     it '電話番号が9桁以下では登録できないこと' do
       @order_form.phone_number = '123456789'
+      @order_form.valid?
       expect(@order_form).to_not be_valid
     end
 
     it '電話番号が12桁以上では登録できないこと' do
       @order_form.phone_number = '123456789012'
+      @order_form.valid?
       expect(@order_form).to_not be_valid
     end
 
     it '電話番号に半角数字以外が含まれている場合、登録できないこと' do
       @order_form.phone_number = '090-1234-5678'
+      @order_form.valid?
       expect(@order_form).to_not be_valid
     end
 
     it 'クレジットカード情報が空では保存できないこと' do
       @order_form.credit_card = nil
+      @order_form.valid?
       expect(@order_form).to_not be_valid
     end
 
     it '全ての情報が存在すれば保存できること' do
-      @order_form.credit_card = '1234567890123456' # 16桁の数字
+      @order_form.credit_card = '1234567890123456'
+      @order_form.valid?
       expect(@order_form).to be_valid
     end
+
+    it '郵便番号が空だと登録できない' do
+      @order_form.postal_code = nil
+      @order_form.valid?
+      expect(@order_form.errors.full_messages).to include("Postal code can't be blank")
+    end
+
+    it '都道府県が空だと登録できない' do
+      @order_form.prefecture_id = nil
+      @order_form.valid?
+      expect(@order_form.
+      errors.full_messages).to include("Prefecture can't be blank")
+    end
+
+    
   end
 end
