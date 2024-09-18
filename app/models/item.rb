@@ -8,7 +8,7 @@ class Item < ApplicationRecord
   belongs_to_active_hash :prefecture
   belongs_to_active_hash :scheduled_delivery
 
-  has_many :order
+  has_one :order
 
   validates :image, presence: true
   validates :name, presence: true
