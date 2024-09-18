@@ -5,8 +5,6 @@ class AddCityToShippingAddresses < ActiveRecord::Migration[7.0]
     add_column :shipping_addresses, :city, :string
     add_column :shipping_addresses, :address, :string
     add_column :shipping_addresses, :phone_number, :string
-    add_column :orders, :credit_card, :string
-    add_column :orders, :token, :string
     add_column :shipping_addresses, :order_id, :integer
   end
 end
