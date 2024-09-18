@@ -22,20 +22,20 @@ class OrdersController < ApplicationController
 
 
   private
-def order_params
+  def order_params
   params.require(:order_form).permit(:postal_code, :prefecture_id, :city, :address, :house_number, :phone_number).merge(token: params[:token], user_id: current_user.id, item_id: params[:item_id])
-end
+  end
 
-def set_item
-  @item = Item.find_by(id: params[:item_id])
-end
+  def set_item
+   @item = Item.find_by(id: params[:item_id])
+  end
 
 
-def set_payjp_public_key
-  gon.public_key = ENV['PAYJP_PUBLIC_KEY']
+  def set_payjp_public_key
+    gon.public_key = ENV['PAYJP_PUBLIC_KEY']
+  end
 
   def redirect_if_not_valid
     redirect_to root_path if current_user.id == @item.user_id || @item.order.present?
-  end
 end
-end
+ end
