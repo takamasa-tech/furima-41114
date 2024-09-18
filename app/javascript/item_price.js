@@ -15,9 +15,8 @@ const price = () => {
         });
     }
 };
-
-window.addEventListener('load', price); // ページが読み込まれたらprice関数を実行
-window.addEventListener('turbolinks:load', price); // turbolinksを使ってページ遷移したらprice関数を実行
+window.addEventListener('load', price); 
+window.addEventListener('turbolinks:load', price); 
 window.addEventListener('DOMContentLoaded', () => {
   const itemPrice = document.getElementById("item-price");
   const addTaxDom = document.getElementById("add-tax-price");
