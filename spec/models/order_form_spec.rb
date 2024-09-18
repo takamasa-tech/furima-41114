@@ -5,47 +5,46 @@ RSpec.describe OrderForm, type: :model do
     @order_form = FactoryBot.build(:order_form)
   end
 
-  it '全ての項目が存在すれば保存できること' do
-    expect(@shipping_address).to be_valid
+  context '登録できる場合' do
+    it '全ての項目が存在すれば保存できること' do
+      expect(@order_form).to be_valid
+    end
+
+    it '建物名が空でも購入できること' do
+      @order_form.building_name = nil
+      expect(@order_form).to be_valid
+    end
   end
 
-  it '郵便番号が空では保存できないこと' do
-    @shipping_address.postal_code = nil
-    expect(@shipping_address).to_not be_valid
-  end
+  context '登録できない場合' do
+    it 'user_idが空だと登録できない' do
+      @order_form.user_id = nil
+      expect(@order_form).to_not be_valid
+    end
 
-  it '郵便番号が「3桁ハイフン4桁」の半角文字列でなければ保存できないこと' do
-    @shipping_address.postal_code = '1234567'
-    expect(@shipping_address).to_not be_valid
-  end
+    it 'item_idが空だと登録できない' do
+      @order_form.item_id = nil
+      expect(@order_form).to_not be_valid
+    end
 
-  it '郵便番号が「3桁ハイフン4桁」の半角文字列でなければ保存できないこと' do
-    @shipping_address.postal_code = '123-456'
-    expect(@shipping_address).to_not be_valid
-  end
+    it 'tokenが空だと登録できない' do
+      @order_form.token = nil
+      expect(@order_form).to_not be_valid
+    end
 
-  it '都道府県が空では保存できないこと' do
-    @shipping_address.prefecture = nil
-    expect(@shipping_address).to_not be_valid
-  end
+    it '電話番号が9桁以下では登録できないこと' do
+      @order_form.phone_number = '123456789'
+      expect(@order_form).to_not be_valid
+    end
 
-  it '市区町村が空では保存できないこと' do
-    @shipping_address.city = nil
-    expect(@shipping_address).to_not be_valid
-  end
+    it '電話番号が12桁以上では登録できないこと' do
+      @order_form.phone_number = '123456789012'
+      expect(@order_form).to_not be_valid
+    end
 
-  it '番地が空では保存できないこと' do
-    @shipping_address.address = nil
-    expect(@shipping_address).to_not be_valid
-  end
-
-  it '電話番号が空では保存できないこと' do
-    @shipping_address.phone_number = nil
-    expect(@shipping_address).to_not be_valid
-  end
-
-  it '電話番号が10桁以上11桁以内の半角数値でなければ保存できないこと' do
-    @shipping_address.phone_number = '090-1234-5678'
-    expect(@shipping_address).to_not be_valid
+    it '電話番号に半角数字以外が含まれている場合、登録できないこと' do
+      @order_form.phone_number = '090-1234-5678'
+      expect(@order_form).to_not be_valid
+    end
   end
 end
