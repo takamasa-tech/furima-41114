@@ -24,12 +24,7 @@ def process_order
                     phone_number: phone_number, order_id: order.id)
 
 
-  Payjp.api_key = ENV['PAYJP_SECRET_KEY']
-  Payjp::Charge.create(
-   amount: price,
-   card: token,
-   currency: 'jpy'
-  )
+ 
   end
  end
 end
