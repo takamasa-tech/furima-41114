@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!, only: [:index, :create]
   before_action :set_item, only: [:index, :create]
-  before_action :redirect_if_not_valid, only: [:index, :create, :edit]
+  before_action :redirect_if_not_valid, only: [:index, :create]
   before_action :set_payjp_public_key, only: [:index, :create]
 
   def index
@@ -20,16 +20,9 @@ class OrdersController < ApplicationController
   end
 
 
-  def edit
-    @order = Order.find(params[:id])
-  end
-    end
 
-    @order = Order.find(params[:id])
-    return unless @order.item.sold? || @order.item.user == current_user
 
-    redirect_to root_path
-  end
+
 
 
   private
