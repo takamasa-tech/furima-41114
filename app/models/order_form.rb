@@ -12,9 +12,8 @@ class OrderForm
   validates :city
   validates :addresses
   validates :phone_number, format: { with: /\A\d{10,11}\z/ }
-end
+　end
 
-end
 public
 
 def process_order
@@ -31,6 +30,6 @@ def process_order
    card: token,
    currency: 'jpy'
   )
-end
-
+  end
+ end
 end
