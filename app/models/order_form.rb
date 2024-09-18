@@ -21,7 +21,6 @@ def process_order
     ShippingAddress.create!(postal_code: postal_code, prefecture_id: prefecture_id, city: city, addresses: addresses,
 
                     phone_number: phone_number, order_id: order.id)
-  Price.create!(price: price, order_id: order.id)
 
 
   Payjp.api_key = ENV['PAYJP_SECRET_KEY']
