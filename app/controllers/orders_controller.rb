@@ -12,6 +12,7 @@ class OrdersController < ApplicationController
     @order_form = OrderForm.new(order_params)
     gon.public_key = ENV['PAYJP_PUBLIC_KEY']
     if @order_form.valid?
+      pay_item
       @order_form.process_order
       redirect_to root_path
     else
@@ -19,7 +20,7 @@ class OrdersController < ApplicationController
     end
   end
 
- 
+
   private
 def order_params
   params.require(:order_form).permit(:postal_code, :prefecture_id, :city, :addresses, :house_number, :phone_number).merge(token: params[:token], user_id: current_user.id, item_id: params[:item_id])
@@ -42,22 +43,14 @@ end
     gon.some_variable = some_value
   end
 
-  def pay_item
-    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
-    Payjp::Charge.create(
-      amount: order_params[:price],
-      card: order_params[:token],
-      currency: 'jpy'
-    )
-
-  rescue Payjp::PayjpError => e
-    Rails.logger.error("PayjpError: #{e.message}")
-    flash.clear
-    flash[:error] = '購入処理に失敗しました。'
-    redirect_to item_orders_path(@item)
+  ef set_item
+  @item = Item.find_by(id: params[:item_id])
+  unless @item
+    flash[:error] = "Item not found"
+    redirect_to root_path
   end
+end
 
   def redirect_if_not_valid
     redirect_to root_path if current_user.id == @item.user_id || @item.order.present?
   end
-end
