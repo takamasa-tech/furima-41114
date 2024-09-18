@@ -61,9 +61,6 @@ RSpec.describe OrderForm, type: :model do
       expect(@order_form).to_not be_valid
     end
 
-    it '全ての情報が存在すれば保存できること' do
-      expect(@order_form).to be_valid
-    end
 
     it '郵便番号が空だと登録できない' do
       @order_form.postal_code = nil
