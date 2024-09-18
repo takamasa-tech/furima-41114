@@ -1,7 +1,7 @@
 class OrderForm
   include ActiveModel::Model
   attr_accessor :user_id, :item_id, :price, :token, :postal_code, :prefecture_id, :city, :house_number,
-                :phone_number, :addresses
+                :phone_number, :addresses, :credit_card
 
   with_options presence: true do
   validates :user_id
@@ -12,6 +12,7 @@ class OrderForm
   validates :city
   validates :addresses
   validates :phone_number, format: { with: /\A\d{10,11}\z/ }
+  validates :credit_card
   end
 
 public

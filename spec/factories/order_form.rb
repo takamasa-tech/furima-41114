@@ -9,5 +9,6 @@ FactoryBot.define do
     item_id { 1 }
     token { 'tok_abcdefghijk00000000000000000' }
     prefecture_id { 2 }
+    credit_card { '1234567812345678' } # 16桁の数字
   end
 end
