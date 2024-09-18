@@ -4,4 +4,5 @@ class Order < ApplicationRecord
   has_one :shipping_address
 
   validates :token, presence: true
+  validates :credit_card, presence: true
 end
