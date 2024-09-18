@@ -19,13 +19,7 @@ class OrdersController < ApplicationController
     end
   end
 
-  def edit
-    if current_user.id != @item.user_id || @item.order.present?
-      redirect_to root_path
-    end
-  end
-
-
+ 
   private
 def order_params
   params.require(:order_form).permit(:postal_code, :prefecture_id, :city, :addresses, :house_number, :phone_number).merge(token: params[:token], user_id: current_user.id, item_id: params[:item_id])
