@@ -14,17 +14,15 @@ class OrderForm
   validates :phone_number, format: { with: /\A\d{10,11}\z/ }
   end
 
-public
-
 def process_order
   ActiveRecord::Base.transaction do
-    order = Order.create!(user_id: user_id, item_id: item_id, token: token)
+    order = Order.create!(user_id: user_id, item_id: item_id)
     ShippingAddress.create!(postal_code: postal_code, prefecture_id: prefecture_id, city: city, address: address, house_number: house_number,
 
                     phone_number: phone_number, order_id: order.id)
 
 
- 
+
   end
  end
 end
