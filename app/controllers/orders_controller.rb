@@ -34,23 +34,20 @@ def set_item
   end
 end
 
-
-  def set_payjp_public_key
-    gon.public_key = ENV['PAYJP_PUBLIC_KEY']
-  end
-
   def some_action
     gon.some_variable = some_value
   end
 
-  ef set_item
+  def set_item
   @item = Item.find_by(id: params[:item_id])
   unless @item
     flash[:error] = "Item not found"
     redirect_to root_path
   end
-end
 
   def redirect_if_not_valid
     redirect_to root_path if current_user.id == @item.user_id || @item.order.present?
   end
+end
+end
+
