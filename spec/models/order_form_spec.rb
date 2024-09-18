@@ -46,5 +46,15 @@ RSpec.describe OrderForm, type: :model do
       @order_form.phone_number = '090-1234-5678'
       expect(@order_form).to_not be_valid
     end
+
+    it 'クレジットカード情報が空では保存できないこと' do
+      @order_form.credit_card = nil
+      expect(@order_form).to_not be_valid
+    end
+
+    it '全ての情報が存在すれば保存できること' do
+      @order_form.credit_card = '1234567890123456' # 16桁の数字
+      expect(@order_form).to be_valid
+    end
   end
 end
