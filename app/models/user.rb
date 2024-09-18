@@ -1,6 +1,7 @@
 # app/models/user.rb
 class User < ApplicationRecord
   has_many :items
+  has_many :orders
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable

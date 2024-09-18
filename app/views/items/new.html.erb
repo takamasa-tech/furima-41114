@@ -7,19 +7,14 @@
     <h2 class="items-sell-title">商品の情報を入力</h2>
     <turbo-frame id="item-form">
    <%= form_with model: @item, url: items_path, method: :post, local: true, multipart: true do |f| %>
-   <% if @item.errors.any? %>
+    <%= render 'shared/error_messages', model: @item %>
+    <% if @item.errors.any? %>
      <div id="error_explanation">
       <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
-      <ul>
-      <% @item.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-     </ul>
     </div>
+     
    <% end %>
 
-
-    <%= render 'shared/error_messages', model: @item %>
 
     <%# 商品画像 %>
     <div class="img-upload">
