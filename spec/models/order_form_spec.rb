@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe ShippingAddress, type: :model do
+RSpec.describe OrderForm, type: :model do
   before do
-    @shipping_address = FactoryBot.build(:shipping_address)
+    @order_form = FactoryBot.build(:order_form)
   end
 
   it '全ての項目が存在すれば保存できること' do
