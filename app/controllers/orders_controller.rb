@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!, only: [:index, :create]
   before_action :set_item, only: [:index, :create]
-  before_action :redirect_if_not_valid, only: [:index, :create]
+  before_action :redirect_if_not_valid, only: [:index, :create, :edit]
   before_action :set_payjp_public_key, only: [:index, :create]
 
   def index
@@ -21,9 +21,8 @@ class OrdersController < ApplicationController
 
 
   def edit
-    unless user_signed_in?
-      redirect_to new_user_session_path
-      return
+    @order = Order.find(params[:id])
+  end
     end
 
     @order = Order.find(params[:id])
