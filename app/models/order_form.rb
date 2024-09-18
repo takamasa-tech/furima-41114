@@ -1,7 +1,7 @@
 class OrderForm
   include ActiveModel::Model
   attr_accessor :user_id, :item_id, :price, :token, :postal_code, :prefecture_id, :city, :house_number, :building_name,
-                :phone_number
+                :phone_number, :addresses, :order_id
 
   # バリデーションの定義
   validates :user_id, :item_id, presence: true
@@ -10,13 +10,27 @@ class OrderForm
   validates :prefecture_id, presence: true, numericality: { other_than: 1 }
   validates :city, presence: true
   validates :addresses, presence: true
-  validates :house_number, presence: true
   validates :phone_number, presence: true, format: { with: /\A\d{10,11}\z/ }
+end
 
-  # 保存のためのメソッド
-  def save
-    order = Order.create(user_id:, item_id:)
-    ShippingAddress.create(postal_code:, prefecture_id:, city:, addresses:,
-                           house_number:, building_name:, phone_number:, order_id: order.id)
+public
+
+def process_order
+  if token.blank?
+    raise "Credit card token is missing"
   end
+  ActiveRecord::Base.transaction do
+    order = Order.create!(user_id: user_id, item_id: item_id, token: token)
+    ShippingAddress.create!(postal_code: postal_code, prefecture_id: prefecture_id, city: city, addresses: addresses,
+
+                    phone_number: phone_number, order_id: order.id)
+  Price.create!(price: price, order_id: order.id)
+
+
+  Payjp.api_key = ENV['PAYJP_SECRET_KEY']
+  Payjp::Charge.create(
+   amount: price,
+   card: token,
+   currency: 'jpy'
+  )
 end
