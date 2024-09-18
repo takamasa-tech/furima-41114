@@ -16,9 +16,6 @@ end
 public
 
 def process_order
-  if token.blank?
-    raise "Credit card token is missing"
-  end
   ActiveRecord::Base.transaction do
     order = Order.create!(user_id: user_id, item_id: item_id, token: token)
     ShippingAddress.create!(postal_code: postal_code, prefecture_id: prefecture_id, city: city, addresses: addresses,
