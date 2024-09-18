@@ -1,6 +1,6 @@
 class OrderForm
   include ActiveModel::Model
-  attr_accessor :user_id, :item_id, :price, :token, :postal_code, :prefecture_id, :city, :house_number, :building_name,
+  attr_accessor :user_id, :item_id, :price, :token, :postal_code, :prefecture_id, :city, :house_number,
                 :phone_number, :addresses, :order_id
 
   # バリデーションの定義
