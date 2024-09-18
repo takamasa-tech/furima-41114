@@ -34,20 +34,8 @@
     <%# /支払額の表示 %>
 
  <%= form_with model: @order_form, url: item_orders_path(@item), method: :post, id: "charge-form", class: "transaction-form-wrap", local: true do |f| %>
-  <% if @item.errors.any? %>
-    <%= render 'shared/error_messages', model: @item %>
-    <% if @item.errors.any? %>
-     <div id="error_explanation">
-      <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
-      <ul>
-      <% @item.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-     
-      </ul>
-    </div>
-  <% end %> 
-  <%= f.hidden_field :token, id: "card_token" %> <!-- ここに追加 -->
+  
+  <%= f.hidden_field :token, id: "card_token" %> 
   <% end %>
     <%# カード情報の入力 %>
     <div class='credit-card-form'>
