@@ -56,6 +56,10 @@ class ItemsController < ApplicationController
   end
 
   def check_user
-    redirect_to root_path unless current_user.id == @item.user_id
+    if current_user.id == @item.user_id && @item.sold_out?
+      redirect_to root_path
+    else
+      redirect_to root_path unless current_user.id == @item.user_id
+    end
   end
 end
