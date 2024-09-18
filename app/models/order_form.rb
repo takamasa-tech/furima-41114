@@ -34,3 +34,5 @@ def process_order
    currency: 'jpy'
   )
 end
+
+end
