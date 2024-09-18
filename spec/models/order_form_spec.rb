@@ -4,7 +4,7 @@ RSpec.describe OrderForm, type: :model do
   before do
     user = FactoryBot.create(:user)
     item = FactoryBot.create(:item)
-    @order_form = FactoryBot.build(:order_form, user_id: user.id, item_id: item.id, credit_card: '1234567812345678')
+    @order_form = FactoryBot.build(:order_form, user_id: user.id, item_id: item.id)
   end
 
   context '登録できる場合' do
@@ -55,15 +55,13 @@ RSpec.describe OrderForm, type: :model do
       expect(@order_form).to_not be_valid
     end
 
-    it 'クレジットカード情報が空では保存できないこと' do
-      @order_form.credit_card = nil
+    it '郵便番号にハイフンがないと登録できないこと' do
+      @order_form.postal_code = '1234567'
       @order_form.valid?
       expect(@order_form).to_not be_valid
     end
 
     it '全ての情報が存在すれば保存できること' do
-      @order_form.credit_card = '1234567890123456'
-      @order_form.valid?
       expect(@order_form).to be_valid
     end
 
@@ -80,6 +78,6 @@ RSpec.describe OrderForm, type: :model do
       errors.full_messages).to include("Prefecture can't be blank")
     end
 
-    
+
   end
 end
