@@ -14,6 +14,7 @@ class OrderForm
   validates :phone_number, format: { with: /\A\d{10,11}\z/ }
 end
 
+end
 public
 
 def process_order
