@@ -78,6 +78,28 @@ RSpec.describe OrderForm, type: :model do
       errors.full_messages).to include("Prefecture can't be blank")
     end
 
+    it '都道府県が1だと登録できない' do
+      @order_form.prefecture_id = nil
+      @order_form.valid?
+      expect(@order_form.errors.full_messages).to include("Prefecture can't be blank")
+    end
 
+    it '市区町村が空だと登録できない' do
+      @order_form.city = nil
+      @order_form.valid?
+      expect(@order_form.errors.full_messages).to include("City can't be blank")
+    end
+
+    it '番地が空だと登録できない' do
+      @order_form.address = nil
+      @order_form.valid?
+      expect(@order_form.errors.full_messages).to include("Address can't be blank")
+    end
+
+    it '電話番号が空だと登録できない' do
+      @order_form.phone_number = nil
+      @order_form.valid?
+      expect(@order_form.errors.full_messages).to include("Phone number can't be blank")
+    end
   end
 end
