@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!, only: [:index, :create]
-  before_action :set_item, only: [:index, :create]
+  before_action :set_item, only: [:index, :create, :edit]
   before_action :redirect_if_not_valid, only: [:index, :create]
   before_action :set_payjp_public_key, only: [:index, :create]
 
@@ -19,10 +19,11 @@ class OrdersController < ApplicationController
     end
   end
 
-
-
-
-
+  def edit
+    if current_user.id != @item.user_id || @item.order.present?
+      redirect_to root_path
+    end
+  end
 
 
   private
