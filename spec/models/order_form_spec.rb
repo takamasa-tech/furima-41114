@@ -18,15 +18,17 @@ RSpec.describe OrderForm, type: :model do
     end
   end
 
-  context '登録できない場合' do
+ context '登録できない場合' do
     it 'user_idが空だと登録できない' do
       @order_form.user_id = nil
-      expect(@order_form).to_not be_valid
+      @order_form.valid?
+      expect(@order_form.errors.full_messages).to include("User can't be blank")
     end
 
     it 'item_idが空だと登録できない' do
       @order_form.item_id = nil
-      expect(@order_form).to_not be_valid
+      @order_form.valid?
+      expect(@order_form.errors.full_messages).to include("Item can't be blank")
     end
 
     it 'tokenが空だと登録できない' do
