@@ -128,32 +128,33 @@
     </div>
     <ul class='item-lists'>
        <% if @items.present? %>
-       <% @items.each do |item| %>
-       <li class='list'>
-        <%= link_to item_path(item) do %>
-         <div class='item-img-content'>
-          <%= image_tag url_for(item.image), class: "item-img" %>
-          <% if item.sold_out? %>
-           <div class='sold-out'>
-            <span>Sold Out!!</span>
+        <% @items.each do |item| %>
+         <li class='list'>
+          <%= link_to item_path(item) do %>
+           <div class='item-img-content'>
+            <%= image_tag url_for(item.image), class: "item-img" %>
+            <% if item.sold_out? %>
+             <div class='sold-out'>
+              <span>Sold Out!!</span>
            </div>
           <% end %>
          </div>
-        <% end %>
-        <div class='item-info'>
+         <div class='item-info'>
           <h3 class='item-name'>
             <%= item.name %>
           </h3>
           <div class='item-price'>
             <span><%= item.price %>円<br><%= item.shipping_fee_status.name %></span>
             <div class='star-btn'>
-              <%= image_tag "star.png", class:"star-icon" %>
-                          <span class='star-count'>0</span>
+              <%= image_tag "star.png", class:"star-icon" %>   
+               <span class='star-count'>0</span>
             </div>
           </div>
         </div>
+        <% end %>
         </li>
        <% end %>
+     <% end %>
        <% else %>
        <li class='list'>
         <%= link_to new_item_path do %>
@@ -171,7 +172,6 @@
          </div>
         <% end %>
        </li>
-      <% end %> 
     </ul>
   </div>
   <%# /商品一覧 %>
