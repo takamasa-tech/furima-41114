@@ -19,5 +19,4 @@ const price = () => {
 window.addEventListener('turbo:load', price);
 window.addEventListener('turbo:render', price);
 window.addEventListener('DOMContentLoaded', price);
-window.addEventListener('keypress', price);
 
