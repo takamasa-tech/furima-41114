@@ -2,7 +2,7 @@ const price = () => {
 
   const priceInput = document.getElementById('item_price');
   if (priceInput) {
-  priceInput.addEventListener('input', () => {
+  priceInput.addEventListener('keypress', () => {
     const inputValue = priceInput.value;
     
     const addTaxPrice = Math.floor(inputValue * 0.1);
@@ -19,4 +19,5 @@ const price = () => {
 window.addEventListener('turbo:load', price);
 window.addEventListener('turbo:render', price);
 window.addEventListener('DOMContentLoaded', price);
+window.addEventListener('keypress', price);
 
