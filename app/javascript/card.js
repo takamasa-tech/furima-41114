@@ -1,6 +1,6 @@
-
 window.addEventListener('DOMContentLoaded', () => {
 const pay = () => {
+  if (window.gon) {
   const publicKey = gon.public_key
   const payjp = Payjp(publicKey);
   const elements = payjp.elements();
@@ -31,9 +31,8 @@ const pay = () => {
       });
   });
 }
+}
 pay();
-});
-window.addEventListener("DOMContentLoaded", pay);
-window.addEventListener("load", pay);
-window.addEventListener("turbo:load", pay);
-window.addEventListener("turbo:render", pay);
+}
+);
+
