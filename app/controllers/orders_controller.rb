@@ -9,8 +9,8 @@ class OrdersController < ApplicationController
   end
 
   def create
+    binding.pry
     @order_form = OrderForm.new(order_params)
-    gon.public_key = ENV['PAYJP_PUBLIC_KEY']
     if @order_form.valid?
       pay_item
       @order_form.process_order
@@ -37,5 +37,11 @@ class OrdersController < ApplicationController
 
   def redirect_if_not_valid
     redirect_to root_path if current_user.id == @item.user_id || @item.order.present?
+  end
+
+def order_params
+  params.require(:order_form).permit(:postal_code, :prefecture_id, :city, :address, :house_number, :phone_number).merge(token: params[:order_form][:token], user_id: current_user.id, item_id: params[:item_id])
 end
- end
+
+
+end

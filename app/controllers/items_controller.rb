@@ -2,6 +2,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :check_user, only: [:edit, :update, :destroy]
+
   def index
     @items = Item.order('created_at DESC')
   end
@@ -41,7 +42,7 @@ class ItemsController < ApplicationController
     end
   end
 
-  private
+ private
 
   def item_params
     params.require(:item).permit(:name, :info, :price, :category_id, :condition_id,
@@ -53,7 +54,12 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
+  
   def check_user
     redirect_to root_path if current_user.id != @item.user_id || @item.sold_out?
+  end
+
+  def order_params
+    params.require(:order_form).permit(:token, :postal_code, :prefecture_id, :city, :address, :house_number, :phone_number)
   end
 end
