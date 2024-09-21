@@ -6,7 +6,7 @@ window.addEventListener('turbo:load', () => {
     price.addEventListener('input', () => {
     const value = price.value;
     tax.innerHTML = Math.floor(value * 0.1);
-    profit.innerHTML = Math.floor(value * 0.9);
+    profit.innerHTML = Math.floor(value - tax.innerHTML);
   });
   }
 });
