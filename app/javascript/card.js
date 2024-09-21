@@ -13,11 +13,10 @@ const pay = () => {
   form.addEventListener("submit", (e) => {
     payjp.createToken(numberElement).then(function (response) {
       if (response.error) {
-       // console.log(response.error.message);
       } else {
         const token = response.id;
         const renderDom = document.getElementById("charge-form");
-        const tokenObj = `<input value=${token} name='order[token]' type='hidden'>`;
+        const tokenObj = `<input value=${token} name='token' type="hidden">`;
         renderDom.insertAdjacentHTML("beforeend", tokenObj);
       }
       numberElement.clear();
@@ -30,4 +29,4 @@ const pay = () => {
   });
 }
 
-window.addEventListener("load", pay);
+window.addEventListener('load', pay);

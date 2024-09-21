@@ -54,12 +54,10 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
-  
+
   def check_user
     redirect_to root_path if current_user.id != @item.user_id || @item.sold_out?
   end
 
-  def order_params
-    params.require(:order_form).permit(:token, :postal_code, :prefecture_id, :city, :address, :house_number, :phone_number)
-  end
+  
 end
