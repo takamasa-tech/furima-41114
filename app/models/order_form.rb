@@ -20,14 +20,4 @@ def save
                           phone_number: phone_number, address: address, order_id: order.id)
 end
 
-def process_order
-  ActiveRecord::Base.transaction do
-    order = Order.create!(user_id: user_id, item_id: item_id)
-    ShippingAddress.create!(postal_code: postal_code, prefecture_id: prefecture_id, city: city, address: address, house_number: house_number,
-                    phone_number: phone_number, order_id: order.id)
-
-
-
-  end
- end
 end
