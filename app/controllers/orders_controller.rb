@@ -9,17 +9,17 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.new(order_params)
-    if @order.valid?
+    @order_form = OrderForm.new(order_params)
+    if @order_form.valid?
       pay_item
-      @order.save
+      @order_form.save
       return redirect_to root_path
     else
       gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
       render 'index', status: :unprocessable_entity
     end
   end
-
+  
   private
 
   def pay_item
