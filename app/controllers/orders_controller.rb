@@ -5,7 +5,7 @@ class OrdersController < ApplicationController
   before_action :set_payjp_public_key, only: [:index, :new, :create]
 
   def index
-    set_payjp_public_key
+    gon.public_key = ENV['PAYJP_PUBLIC_KEY']
     @order_form = OrderForm.new
   end
 
