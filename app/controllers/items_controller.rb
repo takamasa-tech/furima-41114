@@ -25,6 +25,7 @@ class ItemsController < ApplicationController
     unless @item.image.viewable_by?(current_user)
       redirect_to root_path
   end
+end
 
   def edit
   end
