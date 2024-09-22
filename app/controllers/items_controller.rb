@@ -21,6 +21,9 @@ class ItemsController < ApplicationController
   end
 
   def show
+    @item = Item.find(params[:id])
+    unless @item.image.viewable_by?(current_user)
+      redirect_to root_path
   end
 
   def edit
@@ -59,5 +62,5 @@ class ItemsController < ApplicationController
     redirect_to root_path if current_user.id != @item.user_id || @item.sold_out?
   end
 
-  
+
 end

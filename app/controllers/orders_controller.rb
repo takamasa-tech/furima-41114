@@ -1,8 +1,8 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_user!, only: [:index, :create]
+  before_action :authenticate_user!:only: [:index, :create]
   before_action :set_item, only: [:index, :create, :edit]
   before_action :redirect_if_not_valid, only: [:index, :create]
-  before_action :set_payjp_public_key, only: [:index, :create]
+  before_action :set_payjp_public_key, only: [:index, :new, :create]
 
   def index
     @order_form = OrderForm.new
