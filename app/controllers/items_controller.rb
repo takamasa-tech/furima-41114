@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :authenticate_user!
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :check_user, only: [:edit, :update, :destroy]
 
@@ -46,9 +46,9 @@ class ItemsController < ApplicationController
  private
 
   def item_params
-    params.require(:item).permit(:name, :info, :price, :category_id, :condition_id,
+    params.require(:item).permit(:image, :name, :info, :price, :category_id, :condition_id,
                                  :shipping_fee_status_id, :prefecture_id,
-                                 :scheduled_delivery_id, :image, :user_id)
+                                 :scheduled_delivery_id, :user_id)
   end
 
   def set_item
