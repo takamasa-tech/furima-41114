@@ -21,11 +21,8 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find(params[:id])
-    unless @item.image.viewable_by?(current_user)
-      redirect_to root_path
   end
-end
+
 
   def edit
   end
