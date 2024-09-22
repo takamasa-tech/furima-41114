@@ -5,6 +5,7 @@ class OrdersController < ApplicationController
   before_action :set_payjp_public_key, only: [:index, :new, :create]
 
   def index
+    set_payjp_public_key
     @order_form = OrderForm.new
   end
 
@@ -26,10 +27,10 @@ class OrdersController < ApplicationController
    @item = Item.find_by(id: params[:item_id])
   end
 
-
   def set_payjp_public_key
     gon.public_key = ENV['PAYJP_PUBLIC_KEY']
   end
+
 
   def redirect_if_not_valid
     redirect_to root_path if current_user.id == @item.user_id || @item.order.present?
