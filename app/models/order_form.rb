@@ -1,6 +1,6 @@
 class OrderForm
   include ActiveModel::Model
-  attr_accessor :user_id, :item_id, :price, :token, :postal_code, :prefecture_id, :city, :house_number,
+  attr_accessor :user_id, :item_id, :price, :token, :postal_code, :prefecture, :city, :house_number,
                 :phone_number, :address
 
   with_options presence: true do
@@ -16,7 +16,7 @@ class OrderForm
 
 def save
   order = Order.create(user_id: user_id, item_id: item_id)
-  ShippingAddress.create(postal_code: postal_code, prefecture_id: prefecture_id, city: city, house_number: house_number,
+  ShippingAddress.create(postal_code: postal_code, prefecture: prefecture, city: city, house_number: house_number,
                           phone_number: phone_number, address: address, order_id: order.id)
 end
 
